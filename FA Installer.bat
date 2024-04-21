@@ -1085,6 +1085,7 @@ echo Progress: [==========] 100%
 timeout /t 1 >nul
 cls
 echo download complere
+echo have a nice day
 start "" "C:\FA_Antivira\FAwlc.vbs"
 timeout /t 60 >nul
 goto Start
