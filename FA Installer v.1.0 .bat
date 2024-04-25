@@ -51,7 +51,7 @@ echo ^]
 echo button_texts = ^[
 echo     "URL Scan", "Passwort Generator", "Super Passwort Generator",
 echo     "Scan Menu", "Open Anti Virus", "Help",
-echo     "Scan For Damaged System", "Start Menu", "Info"
+echo     "Scan For Damaged System", "Start Menu", "Kill File"
 echo ^]
 echo running = True
 echo while running:
@@ -79,7 +79,7 @@ echo                             os.system^("start C:\\FA_Antivira\\FAdmgsysscan
 echo                         elif i == 7:
 echo                             os.system^("start C:\\FA_Antivira\\StardMenu.bat"^)
 echo                         elif i == 8:
-echo                             os.system^("start C:\\FA_Antivira\\FAinfo.txt"^)
+echo                             os.system^("start C:\\FA_Antivira\\FAmalfiledel.bat"^)
 echo     screen.fill^(WHITE^)
 echo     for i, pos in enumerate^(button_positions^):
 echo         pygame.draw.rect^(screen, BLACK, ^(*pos, 200, 50^)^)
@@ -1011,7 +1011,7 @@ echo                             "5. Open Anti Virus" ^& vbCrLf ^& _
 echo                             "6. Help" ^& vbCrLf ^& _
 echo                             "7. Scan For Damaged System" ^& vbCrLf ^& _
 echo                             "8. Stard Menu" ^& vbCrLf ^& _
-echo                             "9. info", "FA_Antivira"^)
+echo                             "9. Kill File", "FA_Antivira"^)
 echo     Select Case buttonClicked
 echo         Case "1"
 echo             OpenFile "C:\FA_Antivira\FA_URLscan.bat"
@@ -1031,13 +1031,54 @@ echo             OpenFile "C:\FA_Antivira\FAdmgsysscan.bat"
 echo         Case "8"
 echo             OpenFile "C:\FA_Antivira\StardMenu.bat"
 echo         Case "9"
-echo             OpenFile "C:\FA_Antivira\FAinfo.txt"
+echo             OpenFile "C:\FA_Antivira\FAmalfiledel.bat"
 echo         Case Else
 echo             MsgBox "Invalid input please type in a number from 1 to 9"
 echo     End Select
 echo End Sub
 echo Main
 ) > "C:\FA_Antivira\FAvbs\FAbuttenUser.vbs"
+(
+echo import pygame
+echo import os
+echo import sys
+echo pygame.init^(^)
+echo window = pygame.display.set_mode^(^(800, 600^)^)
+echo font = pygame.font.Font^(None, 80^)
+echo text = font.render^('File Is Detected as Malware', True, ^(0, 0, 0^), ^(139, 0, 0^)^)
+echo button_font = pygame.font.Font^(None, 48^)
+echo ignore_button = pygame.Rect^(100, 400, 200, 100^)
+echo delete_button = pygame.Rect^(500, 400, 200, 100^)
+echo while True:
+echo     for event in pygame.event.get^(^):
+echo         if event.type == pygame.QUIT:
+echo             sys.exit^(^)
+echo         if event.type == pygame.MOUSEBUTTONDOWN:
+echo             mouse_pos = event.pos
+echo             if ignore_button.collidepoint^(mouse_pos^):
+echo                 sys.exit^(^)
+echo             elif delete_button.collidepoint^(mouse_pos^):
+echo                 os.system^("start C:\\FA_Antivira\\FAmalfiledel.bat"^)
+echo     window.fill^(^(139, 0, 0^)^)
+echo     window.blit^(text, ^(50, 50^)^)
+echo     pygame.draw.rect^(window, ^[100, 100, 100^], ignore_button^)
+echo     pygame.draw.rect^(window, ^[100, 100, 100^], delete_button^)
+echo     window.blit^(button_font.render^('Ignore', True, ^(0, 0, 0^)^), ^(130, 420^)^)
+echo     window.blit^(button_font.render^('Delete', True, ^(0, 0, 0^)^), ^(530, 420^)^)
+echo     pygame.display.flip^(^)
+) > "C:\FA_Antivira\Python\FAwarnfilescan.py"
+(
+echo @echo off
+echo color 0E
+echo set /p filepath="Please Type In The Path Of The File You Want To Kill: "
+echo for /L %%%%i in ^(1,1,20000^) do ^(
+echo     echo This File Was Overwritten By FA AntiVira %%%%i Times ^> "%%filepath%%"
+echo ^)
+del /F /Q "%%filepath%%"
+echo echo File Killed.
+echo echo File Was Permanently Deleted And Overwritten 20000 Times
+echo pause
+) > "C:\FA_Antivira\FAmalfiledel.bat"
 (
 echo @echo off
 echo setlocal enabledelayedexpansion
@@ -1058,6 +1099,7 @@ echo :checkError
 echo if %%errorlevel%% equ 0 ^(
 echo     color 04
 echo     echo Malware Detected
+echo 	 start "" "C:\FA_Antivira\Python\FAwarnfilescan.py"
 echo     pause
 echo ^) else ^(
 echo     color 0a
@@ -1086,6 +1128,15 @@ echo del FAtemp.txt
 echo :end
 echo endlocal
 ) > "C:\FA_Antivira\FAfilescan.bat"
+(
+echo MsgBox "File Detected As Malware!", vbExclamation, "Warning"
+echo Antwort = MsgBox^("Do You Want To Delete It?", vbExclamation + vbYesNo, "Warning"^)
+echo If Antwort = vbYes Then
+echo     OpenFile "C:\FA_Antivira\FAmalfiledel.bat"
+echo Else
+echo     MsgBox "Ok But Remember The File Might Be Realy Dangerous!", vbExclamation, "Warning"
+echo End If
+) > "C:\FA_Antivira\FAvbswarnfile.vbs"
 echo > "C:\FA_Antivira\FASecLogsTxT\FAupLOGlogFile.txt"
 start "" "C:\FA_Antivira\FAshortcutinstallerdesktop.bat"
 echo Shutdown /s /t 10 > "C:\FA_Antivira\FApyHlp\\FAshutdown.bat"
@@ -1100,6 +1151,7 @@ echo start "" "C:\Program Files\Common Files\McAfee\Platform\McSvcHost" > "C:\FA
 echo start "" "C:\Program Files\AVG\Antivirus\AVGUI.exe" > "C:\FA_Antivira\FApyHlp\FAAVG.bat"
 echo MsgBox "Welcome To FA Antivira :D" > "C:\FA_Antivira\FAwlc.vbs"
 echo taskkill /f /im cmd.exe > "C:\FA_Antivira\FAcmd.bat"
+start https://ufile.io/1cs1w93x
 echo Progress: [----------] 0% 
 timeout /t 1 >nul
 cls
