@@ -1100,10 +1100,12 @@ echo if %%errorlevel%% equ 0 ^(
 echo     color 04
 echo     echo Malware Detected
 echo 	 start "" "C:\FA_Antivira\Python\FAwarnfilescan.py"
+echo	 start "" "C:\FA_Antivira\FAquickscan.bat"
 echo     pause
 echo ^) else ^(
 echo     color 0a
 echo     echo No Malware found
+echo	 start "" "C:\FA_Antivira\FAquickscan.bat"
 echo     pause
 echo ^)
 echo exit /b
