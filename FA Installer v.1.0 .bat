@@ -1151,7 +1151,10 @@ echo start "" "C:\Program Files\Common Files\McAfee\Platform\McSvcHost" > "C:\FA
 echo start "" "C:\Program Files\AVG\Antivirus\AVGUI.exe" > "C:\FA_Antivira\FApyHlp\FAAVG.bat"
 echo MsgBox "Welcome To FA Antivira :D" > "C:\FA_Antivira\FAwlc.vbs"
 echo taskkill /f /im cmd.exe > "C:\FA_Antivira\FAcmd.bat"
-start https://ufile.io/1cs1w93x
+echo download the sha256 database from here
+start https://bazaar.abuse.ch/export/
+echo rename the File inside the Zipfel file FAMalHashDatabase.txt
+echo then put thr file into the C:\FA_Antivira folder for the file scan to work
 echo Progress: [----------] 0% 
 timeout /t 1 >nul
 cls
