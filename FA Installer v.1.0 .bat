@@ -1074,7 +1074,7 @@ echo set /p filepath="Please Type In The Path Of The File You Want To Kill: "
 echo for /L %%%%i in ^(1,1,20000^) do ^(
 echo     echo This File Was Overwritten By FA AntiVira %%%%i Times ^> "%%filepath%%"
 echo ^)
-del /F /Q "%%filepath%%"
+echo del /F /Q "%%filepath%%"
 echo echo File Killed.
 echo echo File Was Permanently Deleted And Overwritten 20000 Times
 echo pause
